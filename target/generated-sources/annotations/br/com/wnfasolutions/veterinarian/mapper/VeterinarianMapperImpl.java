@@ -15,7 +15,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-06-21T06:33:47-0300",
+    date = "2022-06-21T06:47:01-0300",
     comments = "version: 1.3.1.Final, compiler: Eclipse JDT (IDE) 1.3.1200.v20200916-0645, environment: Java 15.0.2 (Oracle Corporation)"
 )
 public class VeterinarianMapperImpl implements VeterinarianMapper {
