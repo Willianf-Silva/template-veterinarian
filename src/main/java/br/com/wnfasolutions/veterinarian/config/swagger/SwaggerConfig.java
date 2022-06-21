@@ -21,7 +21,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("br.com.wnfasolutions.veterinarian.resource"))
                 .paths(PathSelectors.any())
-//					.paths(PathSelectors.ant("/lancamentos/*")) //Essa parte do código define os endpoint que serão apresentados no swagger-ui
+//				.paths(PathSelectors.ant("/lancamentos/*")) //Essa parte do código define os endpoint que serão apresentados no swagger-ui
                 .build()
                 .apiInfo(apiInfo())
                 .tags(
@@ -41,7 +41,7 @@ public class SwaggerConfig {
      */
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Karen Vet API")
+                .title("Veterinarian API")
                 .description("Backend para gerenciamento de atendimentos em pequenas clínicas veterinária.")
                 .version("1")
                 .contact(new Contact("Willian Silva", "https://www.linkedin.com/in/willianferreirasilva/", "willian.ferreira.da.silva@gmail.com"))
