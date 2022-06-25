@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,12 +17,14 @@ import org.springframework.stereotype.Service;
 
 import br.com.wnfasolutions.veterinarian.dto.request.VeterinarianRequestDTO;
 import br.com.wnfasolutions.veterinarian.dto.response.VeterinarianResponseDTO;
+import br.com.wnfasolutions.veterinarian.entity.CalendarDO;
 import br.com.wnfasolutions.veterinarian.entity.RoleDO;
 import br.com.wnfasolutions.veterinarian.entity.VeterinarianDO;
 import br.com.wnfasolutions.veterinarian.enums.Situation;
 import br.com.wnfasolutions.veterinarian.exception.ResourceNotFoundException;
 import br.com.wnfasolutions.veterinarian.exception.RolesNotFoundException;
 import br.com.wnfasolutions.veterinarian.mapper.VeterinarianMapper;
+import br.com.wnfasolutions.veterinarian.repository.CalendarRepository;
 import br.com.wnfasolutions.veterinarian.repository.RoleRepository;
 import br.com.wnfasolutions.veterinarian.repository.VeterinarianRepository;
 import br.com.wnfasolutions.veterinarian.service.VeterinarianService;
@@ -29,21 +33,27 @@ import br.com.wnfasolutions.veterinarian.service.VeterinarianService;
 public class VeterinarianServiceImpl implements VeterinarianService {
 	@Autowired
 	private VeterinarianRepository veterinarianRepository;
+
+	@Autowired
+	private CalendarRepository calendarRepository;
 	
 	@Autowired
 	private RoleRepository roleRepository;
-
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	private final VeterinarianMapper veterinarianMapper = VeterinarianMapper.INSTANCE;
 	
 	@Override
+	@Transactional
 	public VeterinarianResponseDTO createNewVeterinarian(VeterinarianRequestDTO veterinarianRequestDTO) throws Exception {		
 		VeterinarianDO veterinarianDO = convertToModel(veterinarianRequestDTO);
 		veterinarianDO.setSituation(Situation.ATIVO);
 		veterinarianDO.setPassword(passwordEncoder.encode(veterinarianRequestDTO.getPassword()));
 		veterinarianDO.setRoles(getRoles(veterinarianRequestDTO));
+		CalendarDO calendarDO = calendarRepository.save(new CalendarDO());
+		veterinarianDO.setCalendar(calendarDO);
 		return convertToResponse(veterinarianRepository.save(veterinarianDO));
 	}
 

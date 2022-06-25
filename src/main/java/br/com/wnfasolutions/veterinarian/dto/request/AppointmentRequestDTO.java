@@ -28,9 +28,9 @@ public class AppointmentRequestDTO {
 	@NotNull
 	private List<ItemServiceRequestDTO> itemService;
 
-	@ApiModelProperty(notes = "Identificador único do veterinário", required = true, example = "01")
-	@NotNull
-	private Long idVeterinarian;
+//	@ApiModelProperty(notes = "Identificador único do veterinário", required = true, example = "01")
+//	@NotNull
+//	private Long idVeterinarian;
 
 	@ApiModelProperty(notes = "Identificador único do cliente", required = true, example = "01")
 	@NotNull

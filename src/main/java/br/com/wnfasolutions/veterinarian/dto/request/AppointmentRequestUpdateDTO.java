@@ -23,7 +23,7 @@ public class AppointmentRequestUpdateDTO {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate date;
 
-	@ApiModelProperty(notes = "Identificador único do veterinário", required = true, example = "01")
-	@NotNull
-	private Long idVeterinarian;
+//	@ApiModelProperty(notes = "Identificador único do veterinário", required = true, example = "01")
+//	@NotNull
+//	private Long idVeterinarian;
 }

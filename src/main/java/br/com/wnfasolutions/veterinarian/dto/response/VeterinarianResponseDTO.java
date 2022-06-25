@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.wnfasolutions.veterinarian.dto.request.RoleRequestDTO;
 import br.com.wnfasolutions.veterinarian.enums.Situation;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -54,5 +53,8 @@ public class VeterinarianResponseDTO{
 	
 	@ApiModelProperty(notes = "Roles para autorização de acesso", required = true)
 	@NotNull
-	private Set<RoleRequestDTO> roles;
+	private Set<RoleResponseDTO> roles;
+	
+	@ApiModelProperty(notes = "Calendário da agenda", required = true)
+	private CalendarResponseDTO calendar;
 }

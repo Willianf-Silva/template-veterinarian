@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -80,6 +81,10 @@ public class VeterinarianDO implements UserDetails{
 	)
 	private Set<RoleDO> roles; // Foi utilizado Set para forçar que o usuário não tenha repetição nas roles
 
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "calendar_id")
+	private CalendarDO calendar;
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.roles.stream()
