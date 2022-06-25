@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import br.com.wnfasolutions.veterinarian.dto.request.AppointmentRequestDTO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +21,6 @@ public class CalendarResponseDTO {
 	private Long id;
 
 	@ApiModelProperty(notes = "Agendamentos para o calendário", required = true)
-	private List<AppointmentRequestDTO> appointments;
+	private List<AppointmentResponseDTO> appointments;
 
 }
