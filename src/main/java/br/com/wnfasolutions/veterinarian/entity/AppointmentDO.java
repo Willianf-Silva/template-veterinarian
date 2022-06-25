@@ -49,10 +49,6 @@ public class AppointmentDO {
 	
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<ItemServiceDO> itemService;
-//	
-//	@OneToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "veterinarian_id")
-//	private VeterinarianDO veterinarian;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "client_id")

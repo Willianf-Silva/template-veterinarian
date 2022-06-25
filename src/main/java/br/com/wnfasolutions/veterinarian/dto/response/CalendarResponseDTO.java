@@ -22,7 +22,6 @@ public class CalendarResponseDTO {
 	private Long id;
 
 	@ApiModelProperty(notes = "Agendamentos para o calendário", required = true)
-//	@NotNull
 	private List<AppointmentRequestDTO> appointments;
 
 }

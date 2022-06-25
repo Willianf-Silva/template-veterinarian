@@ -41,9 +41,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Autowired
 	private ServiceService serviceService;
 
-//	@Autowired
-//	private VeterinarianService veterinarianService;
-
 	@Autowired
 	private ClientService clientService;
 
@@ -68,10 +65,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 			throws Exception {
 		AppointmentDO appointmentOld = verificaSeExiste(id);
 		verificarStatusParaAlteracao(appointmentOld);
-//		if (appointmentOld.getVeterinarian().getId() != appointmentRequestUpdateDTO.getIdVeterinarian()) {
-//			VeterinarianDO veterinarianDO = obterVeterinarioAtivo(appointmentRequestUpdateDTO.getIdVeterinarian());
-//			appointmentOld.setVeterinarian(veterinarianDO);
-//		}
 		BeanUtils.copyProperties(appointmentRequestUpdateDTO, appointmentOld, "id");
 		return convertToResponse(appointmentRepository.save(appointmentOld));
 	}
@@ -169,7 +162,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 		consultaDO.setDate(appointmentRequestDTO.getDate());
 		consultaDO.setItemService(itens);
 		consultaDO.setTotal(somarTotalProdutos(itens));
-//		consultaDO.setVeterinarian(obterVeterinarioAtivo(appointmentRequestDTO.getIdVeterinarian()));
 		consultaDO.setClient(obterClientAtivo(appointmentRequestDTO.getIdclient()));
 		return consultaDO;
 	}
@@ -217,14 +209,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 		return itensDO;
 	}
-
-//	private VeterinarianDO obterVeterinarioAtivo(Long idVeterinarian) throws Exception {
-//		VeterinarianDO veterinarianDO = veterinarianService.findById(idVeterinarian);
-//		if (!veterinarianDO.ativo()) {
-//			throw new RecursoNaoEstaAtivoException();
-//		}
-//		return veterinarianDO;
-//	}
 
 	private double somarTotalProdutos(List<ItemServiceDO> itens) {
 		double total = 0;

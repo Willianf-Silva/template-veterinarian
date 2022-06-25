@@ -40,9 +40,6 @@ public class AppointmentResponseDTO {
 	
 	@ApiModelProperty(notes = "Dados dos produtos e/ou serviços adquiridos", required = true)
 	private List<ItemServiceResponseDTO> itemService;
-	
-//	@ApiModelProperty(notes = "Dados do veterinário", required = true)
-//	private VeterinarianResponseDTO veterinarian;
 
 	@ApiModelProperty(notes = "Dados do cliente", required = true)
 	private ClientResponseDTO client;
