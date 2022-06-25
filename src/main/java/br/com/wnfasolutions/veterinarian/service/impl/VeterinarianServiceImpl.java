@@ -24,18 +24,17 @@ import br.com.wnfasolutions.veterinarian.enums.Situation;
 import br.com.wnfasolutions.veterinarian.exception.ResourceNotFoundException;
 import br.com.wnfasolutions.veterinarian.exception.RolesNotFoundException;
 import br.com.wnfasolutions.veterinarian.mapper.VeterinarianMapper;
-import br.com.wnfasolutions.veterinarian.repository.CalendarRepository;
 import br.com.wnfasolutions.veterinarian.repository.RoleRepository;
 import br.com.wnfasolutions.veterinarian.repository.VeterinarianRepository;
+import br.com.wnfasolutions.veterinarian.service.CalendarService;
 import br.com.wnfasolutions.veterinarian.service.VeterinarianService;
 
 @Service
 public class VeterinarianServiceImpl implements VeterinarianService {
+	private final VeterinarianMapper veterinarianMapper = VeterinarianMapper.INSTANCE;
+	
 	@Autowired
 	private VeterinarianRepository veterinarianRepository;
-
-	@Autowired
-	private CalendarRepository calendarRepository;
 	
 	@Autowired
 	private RoleRepository roleRepository;
@@ -43,16 +42,18 @@ public class VeterinarianServiceImpl implements VeterinarianService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	private final VeterinarianMapper veterinarianMapper = VeterinarianMapper.INSTANCE;
+	@Autowired
+	private CalendarService calendarService;
 	
 	@Override
 	@Transactional
 	public VeterinarianResponseDTO createNewVeterinarian(VeterinarianRequestDTO veterinarianRequestDTO) throws Exception {		
-		VeterinarianDO veterinarianDO = convertToModel(veterinarianRequestDTO);
+		CalendarDO calendarDO = calendarService.createCalendar();
+		Set<RoleDO> roles = getRoles(veterinarianRequestDTO);
+		VeterinarianDO veterinarianDO = convertToModel(veterinarianRequestDTO);		
 		veterinarianDO.setSituation(Situation.ATIVO);
 		veterinarianDO.setPassword(passwordEncoder.encode(veterinarianRequestDTO.getPassword()));
-		veterinarianDO.setRoles(getRoles(veterinarianRequestDTO));
-		CalendarDO calendarDO = calendarRepository.save(new CalendarDO());
+		veterinarianDO.setRoles(roles);
 		veterinarianDO.setCalendar(calendarDO);
 		return convertToResponse(veterinarianRepository.save(veterinarianDO));
 	}
