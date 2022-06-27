@@ -30,4 +30,12 @@ public interface CalendarService {
 	 * @return
 	 */
 	Page<CalendarResponseDTO> findAll(Pageable pageable);
+
+	/**
+	 * Buscar calendario através do identificador
+	 * @param id
+	 * @return
+	 * @throws Exception 
+	 */
+	CalendarResponseDTO findById(Long id) throws Exception;
 }

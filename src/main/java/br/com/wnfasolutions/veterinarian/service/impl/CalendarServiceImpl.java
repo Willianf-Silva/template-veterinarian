@@ -54,4 +54,9 @@ public class CalendarServiceImpl implements CalendarService {
 				.collect(Collectors.toList());
 		return new PageImpl<>(calendarsDTO, pageable, calendarsDO.getTotalElements());
 	}
+
+	@Override
+	public CalendarResponseDTO findById(Long id) throws Exception {
+		return calendarMapper.toResponseDTO(verificarSeExiste(id));
+	}
 }
