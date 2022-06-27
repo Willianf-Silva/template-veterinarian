@@ -30,6 +30,10 @@ public class AppointmentRequestDTO {
 
 	@ApiModelProperty(notes = "Identificador único do cliente", required = true, example = "01")
 	@NotNull
-	private Long idclient;
+	private Long idClient;
+	
+	@ApiModelProperty(notes = "Identificador único do veterinário", required = true, example = "01")
+	@NotNull
+	private Long idVeterinarian;
 
 }

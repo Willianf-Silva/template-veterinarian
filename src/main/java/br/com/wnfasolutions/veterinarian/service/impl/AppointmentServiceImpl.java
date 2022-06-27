@@ -23,6 +23,7 @@ import br.com.wnfasolutions.veterinarian.entity.AppointmentDO;
 import br.com.wnfasolutions.veterinarian.entity.ClientDO;
 import br.com.wnfasolutions.veterinarian.entity.ItemServiceDO;
 import br.com.wnfasolutions.veterinarian.entity.ServiceDO;
+import br.com.wnfasolutions.veterinarian.entity.VeterinarianDO;
 import br.com.wnfasolutions.veterinarian.enums.Status;
 import br.com.wnfasolutions.veterinarian.exception.AppointmentServiceEmptyException;
 import br.com.wnfasolutions.veterinarian.exception.RecursoNaoEstaAtivoException;
@@ -33,11 +34,15 @@ import br.com.wnfasolutions.veterinarian.repository.AppointmentRepository;
 import br.com.wnfasolutions.veterinarian.repository.ItemServiceRepository;
 import br.com.wnfasolutions.veterinarian.repository.filter.AppointmentFilter;
 import br.com.wnfasolutions.veterinarian.service.AppointmentService;
+import br.com.wnfasolutions.veterinarian.service.CalendarService;
 import br.com.wnfasolutions.veterinarian.service.ClientService;
 import br.com.wnfasolutions.veterinarian.service.ServiceService;
+import br.com.wnfasolutions.veterinarian.service.VeterinarianService;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
+	private final AppointmentMapper appointmentMapper = AppointmentMapper.INSTANCE;
+	
 	@Autowired
 	private ServiceService serviceService;
 
@@ -48,16 +53,22 @@ public class AppointmentServiceImpl implements AppointmentService {
 	private AppointmentRepository appointmentRepository;
 
 	@Autowired
-	ItemServiceRepository itemServiceRepository;
-
-	private final AppointmentMapper appointmentMapper = AppointmentMapper.INSTANCE;
+	private ItemServiceRepository itemServiceRepository;
+	
+	@Autowired
+	private VeterinarianService veterinarianService;
+	
+	@Autowired
+	private CalendarService calendarService;
 
 	@Override
 	@Transactional
 	public AppointmentResponseDTO createNewAppointment(AppointmentRequestDTO appointmentRequestDTO) throws Exception {
 		List<ItemServiceDO> itens = salvarItens(montarItens(appointmentRequestDTO.getItemService()));
-		AppointmentDO appointment = montarAppointment(appointmentRequestDTO, itens);
-		return convertToResponse(appointmentRepository.save(appointment));
+		AppointmentDO savedAppointmentDO = appointmentRepository.save(montarAppointment(appointmentRequestDTO, itens));
+		VeterinarianDO veterinarian = veterinarianService.findById(appointmentRequestDTO.getIdVeterinarian());
+		calendarService.addAppointment(veterinarian.getCalendar().getId(), savedAppointmentDO);
+		return convertToResponse(savedAppointmentDO);
 	}
 
 	@Override
@@ -162,7 +173,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		consultaDO.setDate(appointmentRequestDTO.getDate());
 		consultaDO.setItemService(itens);
 		consultaDO.setTotal(somarTotalProdutos(itens));
-		consultaDO.setClient(obterClientAtivo(appointmentRequestDTO.getIdclient()));
+		consultaDO.setClient(obterClientAtivo(appointmentRequestDTO.getIdClient()));
 		return consultaDO;
 	}
 
