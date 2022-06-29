@@ -60,15 +60,15 @@ public class AppointmentServiceImpl implements AppointmentService {
 	
 	@Autowired
 	private CalendarService calendarService;
-
+	
 	@Override
 	@Transactional
 	public AppointmentResponseDTO createNewAppointment(AppointmentRequestDTO appointmentRequestDTO) throws Exception {
 		List<ItemServiceDO> itens = salvarItens(montarItens(appointmentRequestDTO.getItemService()));
-		AppointmentDO savedAppointmentDO = appointmentRepository.save(montarAppointment(appointmentRequestDTO, itens));
 		VeterinarianDO veterinarian = veterinarianService.findById(appointmentRequestDTO.getIdVeterinarian());
-		calendarService.addAppointment(veterinarian.getCalendar().getId(), savedAppointmentDO);
-		return convertToResponse(savedAppointmentDO);
+		AppointmentDO appointmentDO = appointmentRepository.save(montarAppointment(appointmentRequestDTO, itens));
+		calendarService.addAppointment(veterinarian.getCalendar().getId(), appointmentDO);
+		return convertToResponse(appointmentDO);
 	}
 
 	@Override

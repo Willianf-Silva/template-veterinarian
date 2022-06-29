@@ -30,7 +30,7 @@ public class CalendarResource extends ResourceBase<CalendarResponseDTO> implemen
 	
 	@GetMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_OPERATOR') and #oauth2.hasScope('read')")
-	public ResponseEntity<?> findById(@PathVariable Long id) throws Exception{
+	public ResponseEntity<CalendarResponseDTO> findById(@PathVariable Long id) throws Exception{
 		CalendarResponseDTO response = calendarService.findById(id);
 		return responderSucessoComItem(response);
 	}

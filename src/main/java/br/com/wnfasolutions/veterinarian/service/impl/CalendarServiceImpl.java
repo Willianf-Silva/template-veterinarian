@@ -57,6 +57,7 @@ public class CalendarServiceImpl implements CalendarService {
 
 	@Override
 	public CalendarResponseDTO findById(Long id) throws Exception {
-		return calendarMapper.toResponseDTO(verificarSeExiste(id));
+		CalendarDO calendarDO = verificarSeExiste(id);
+		return calendarMapper.toResponseDTO(calendarDO);
 	}
 }
