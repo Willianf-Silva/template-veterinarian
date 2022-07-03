@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import br.com.wnfa.alurachallenge.dto.response.UserResponseDTO;
 import br.com.wnfasolutions.veterinarian.dto.request.VeterinarianRequestDTO;
 import br.com.wnfasolutions.veterinarian.dto.response.VeterinarianResponseDTO;
 import io.swagger.annotations.Api;
@@ -33,7 +35,13 @@ public interface VeterinarianResourceSwagger {
 	@ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
 	public ResponseEntity<VeterinarianResponseDTO> findById(
 			@ApiParam(value = "ID do veterinário", example = "01") Long id) throws Exception;
-
+	
+	@ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
+	@ApiOperation("Busca um veterinário cadastrado no banco de dados utilizando o username")
+	public ResponseEntity<VeterinarianResponseDTO> findByUsername(
+			@ApiParam(value = "Username utilizado para autenticação no sistema", example = "admin") @PathVariable String username
+			) throws Exception;
+	
 	@ApiOperation("Desabilitar um veterinário através do identificador.")
 	@ApiImplicitParam(name = "Authorization", value = "Bearer Token", required = true, allowEmptyValue = false, paramType = "header", example = "Bearer access_token")
 	public ResponseEntity<VeterinarianResponseDTO> disableVeterinarian(
