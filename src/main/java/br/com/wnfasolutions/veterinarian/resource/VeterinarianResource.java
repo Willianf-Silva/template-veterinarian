@@ -66,6 +66,13 @@ public class VeterinarianResource extends ResourceBase<VeterinarianResponseDTO> 
 		VeterinarianResponseDTO response = veterinarianService.findOneById(id);
 		return responderSucessoComItem(response);
 	}
+
+	@GetMapping("/login/{username}")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_OPERATOR') and #oauth2.hasScope('read')")
+	public ResponseEntity<VeterinarianResponseDTO> findByUsername(@PathVariable String username) throws Exception {
+		VeterinarianResponseDTO response = veterinarianService.findByUsername(username);
+		return responderSucessoComItem(response);
+	}
 	
 	@PatchMapping("/desativar/{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN') and #oauth2.hasScope('write')")

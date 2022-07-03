@@ -95,6 +95,15 @@ public class VeterinarianServiceImpl implements VeterinarianService {
 		alterarSituacaoVeterinarian(id, Situation.INATIVO);
 	}
 
+	@Override
+	public VeterinarianResponseDTO findByUsername(String username) throws Exception {
+		Optional<VeterinarianDO> findByUsername = veterinarianRepository.findByUsername(username);
+		if (findByUsername.isEmpty()) {
+			throw new ResourceNotFoundException();
+		}
+		return convertToResponse(findByUsername.get());
+	}
+
 	private Set<RoleDO> getRoles(VeterinarianRequestDTO veterinarianRequestDTO) throws Exception {
 
 		Set<RoleDO> roles = veterinarianRequestDTO.getRoles().stream()

@@ -22,5 +22,7 @@ public interface VeterinarianService {
 	void disableVeterinarian(Long id) throws Exception;
 
 	void activateVeterinarian(Long id) throws Exception;
+
+	VeterinarianResponseDTO findByUsername(String username) throws Exception;
 	
 }
