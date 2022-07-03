@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import br.com.wnfa.alurachallenge.dto.response.UserResponseDTO;
 import br.com.wnfasolutions.veterinarian.dto.request.VeterinarianRequestDTO;
 import br.com.wnfasolutions.veterinarian.dto.response.VeterinarianResponseDTO;
 import io.swagger.annotations.Api;
