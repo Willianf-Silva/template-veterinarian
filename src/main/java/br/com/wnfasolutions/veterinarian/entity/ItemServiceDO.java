@@ -1,6 +1,5 @@
 package br.com.wnfasolutions.veterinarian.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,6 +32,6 @@ public class ItemServiceDO {
 	@Column(nullable = false)
 	private Double sum;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@OneToOne(fetch = FetchType.EAGER)
 	private ServiceDO service;
 }

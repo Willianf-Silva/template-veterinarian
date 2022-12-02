@@ -3,6 +3,7 @@ package br.com.wnfasolutions.veterinarian.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -47,7 +48,8 @@ public class AppointmentDO {
 	@Column(nullable = true)
 	private LocalDate dateStatus;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "appointment_id")
 	private List<ItemServiceDO> itemService;
 	
 	@OneToOne(fetch = FetchType.EAGER)

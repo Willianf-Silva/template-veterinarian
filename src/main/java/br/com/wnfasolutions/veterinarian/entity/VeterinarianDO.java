@@ -74,7 +74,7 @@ public class VeterinarianDO implements UserDetails{
 //	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 //    private List<Address> address;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "tb_veterinarian_role", // nome da tabela que realiza o relacionamento entre user e role
 			joinColumns = @JoinColumn(name = "veterinarian_id"), // chave primaria da tabela atual
 			inverseJoinColumns = @JoinColumn(name = "tb_role_id") // chave primaria da outra tabrela

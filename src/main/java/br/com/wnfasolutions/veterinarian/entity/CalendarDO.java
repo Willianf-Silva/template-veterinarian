@@ -28,7 +28,7 @@ public class CalendarDO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "calendar_id")
 	private List<AppointmentDO> appointments;
 }
